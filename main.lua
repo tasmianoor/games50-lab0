@@ -92,7 +92,7 @@ function love.load()
     -- initialize our player paddles; make them global so that they can be
     -- detected by other functions and modules
     player1 = Paddle(10, 30, 20, 5)
-    player2 = Paddle(VIRTUAL_WIDTH - 20, VIRTUAL_HEIGHT - 30, 20, 5)
+    player2 = Paddle(VIRTUAL_WIDTH - 30, VIRTUAL_HEIGHT - 30, 20, 5)
 
     -- place a ball in the middle of the screen
     ball = Ball(VIRTUAL_WIDTH / 2 - 2, VIRTUAL_HEIGHT / 2 - 2, 4, 4)
