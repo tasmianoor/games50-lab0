@@ -139,61 +139,61 @@ function love.update(dt)
     if gameState == 'serve' then
         -- before switching to play, initialize ball's velocity based
         -- on player who last scored
-        ball.dy = math.random(-50, 50)
+        ball.dx = math.random(140, 200)
         if servingPlayer == 1 then
-            ball.dx = math.random(140, 200)
+            ball.dy = math.random(-50, 50)
         else
-            ball.dx = -math.random(140, 200)
+            ball.dy = -math.random(-50, 50)
         end
     elseif gameState == 'play' then
         -- detect ball collision with paddles, reversing dx if true and
         -- slightly increasing it, then altering the dy based on the position
         -- at which it collided, then playing a sound effect
         if ball:collides(player1) then
-            ball.dx = -ball.dx * 1.03
-            ball.x = player1.x + 5
+            ball.dy = -ball.dy * 1.03
+            ball.y = player1.y + 5
 
             -- keep velocity going in the same direction, but randomize it
-            if ball.dy < 0 then
-                ball.dy = -math.random(10, 150)
+            if ball.dx < 0 then
+                ball.dx = -math.random(10, 150)
             else
-                ball.dy = math.random(10, 150)
+                ball.dx = math.random(10, 150)
             end
 
             sounds['paddle_hit']:play()
         end
         if ball:collides(player2) then
-            ball.dx = -ball.dx * 1.03
-            ball.x = player2.x - 4
+            ball.dy = -ball.dy * 1.03
+            ball.y = player2.y - 4
 
             -- keep velocity going in the same direction, but randomize it
-            if ball.dy < 0 then
-                ball.dy = -math.random(10, 150)
+            if ball.dx < 0 then
+                ball.dx = -math.random(10, 150)
             else
-                ball.dy = math.random(10, 150)
+                ball.dx = math.random(10, 150)
             end
 
             sounds['paddle_hit']:play()
         end
 
-        -- detect upper and lower screen boundary collision, playing a sound
+        -- detect left and right screen boundary collision, playing a sound
         -- effect and reversing dy if true
-        if ball.y <= 0 then
-            ball.y = 0
-            ball.dy = -ball.dy
+        if ball.x <= 0 then
+            ball.x = 0
+            ball.dx = -ball.dx
             sounds['wall_hit']:play()
         end
 
         -- -4 to account for the ball's size
-        if ball.y >= VIRTUAL_HEIGHT - 4 then
-            ball.y = VIRTUAL_HEIGHT - 4
-            ball.dy = -ball.dy
+        if ball.x >= VIRTUAL_HEIGHT - 4 then
+            ball.x = VIRTUAL_HEIGHT - 4
+            ball.dx = -ball.dx
             sounds['wall_hit']:play()
         end
 
-        -- if we reach the left or right edge of the screen, go back to serve
+        -- if we reach the upper or lower edge of the screen, go back to serve
         -- and update the score and serving player
-        if ball.x < 0 then
+        if ball.y < 0 then
             servingPlayer = 1
             player2Score = player2Score + 1
             sounds['score']:play()
@@ -210,7 +210,7 @@ function love.update(dt)
             end
         end
 
-        if ball.x > VIRTUAL_WIDTH then
+        if ball.y > VIRTUAL_HEIGHT then
             servingPlayer = 2
             player1Score = player1Score + 1
             sounds['score']:play()
@@ -230,20 +230,20 @@ function love.update(dt)
     --
     -- player 1
     if love.keyboard.isDown('left') then
-        player1.dy = -PADDLE_SPEED
+        player1.dx = -PADDLE_SPEED
     elseif love.keyboard.isDown('right') then
-        player1.dy = PADDLE_SPEED
+        player1.dx = PADDLE_SPEED
     else
-        player1.dy = 0
+        player1.dx = 0
     end
 
     -- player 2
-    if love.keyboard.isDown('up') then
-        player2.dy = -PADDLE_SPEED
-    elseif love.keyboard.isDown('down') then
-        player2.dy = PADDLE_SPEED
+    if love.keyboard.isDown(',') then
+        player2.dx = -PADDLE_SPEED
+    elseif love.keyboard.isDown('.') then
+        player2.dx = PADDLE_SPEED
     else
-        player2.dy = 0
+        player2.dx = 0
     end
 
     -- update our ball based on its DX and DY only if we're in play state;
@@ -273,9 +273,9 @@ function love.keypressed(key)
     if key == 'right' then
             x = x + speed
     -- players can use up and down keys for horizontal movement
-    if key == 'up' then
+    if key == ',' then
             y = y - speed
-    if key == 'down' then
+    if key == '.' then
             y = y + speed
     -- if we press enter during either the start or serve phase, it should
     -- transition to the next appropriate state
@@ -302,6 +302,7 @@ function love.keypressed(key)
                 servingPlayer = 1
             end
         end
+    end
     end
     end
     end
