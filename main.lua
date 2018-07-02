@@ -229,20 +229,20 @@ function love.update(dt)
     --
     -- player 1
     if love.keyboard.isDown('left') then
-        player1.dy = -PADDLE_SPEED
+        player1.dx = -PADDLE_SPEED
     elseif love.keyboard.isDown('right') then
-        player1.dy = PADDLE_SPEED
+        player1.dx = PADDLE_SPEED
     else
-        player1.dy = 0
+        player1.dx = 0
     end
 
     -- player 2
-    if love.keyboard.isDown('up') then
-        player2.dy = -PADDLE_SPEED
-    elseif love.keyboard.isDown('down') then
-        player2.dy = PADDLE_SPEED
+    if love.keyboard.isDown(',') then
+        player2.dx = -PADDLE_SPEED
+    elseif love.keyboard.isDown('.') then
+        player2.dx = PADDLE_SPEED
     else
-        player2.dy = 0
+        player2.dx = 0
     end
 
     -- update our ball based on its DX and DY only if we're in play state;
@@ -272,10 +272,10 @@ function love.keypressed(key)
     if key == 'right' then
             x = x + speed
     -- players can use up and down keys for horizontal movement
-    if key == 'up' then
-            y = y - speed
-    if key == 'down' then
-            y = y + speed
+    if key == ',' then
+            x = x - speed
+    if key == '.' then
+            x = x + speed
     -- if we press enter during either the start or serve phase, it should
     -- transition to the next appropriate state
     elseif key == 'enter' or key == 'return' then
@@ -301,6 +301,7 @@ function love.keypressed(key)
                 servingPlayer = 1
             end
         end
+    end
     end
     end
     end
