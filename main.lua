@@ -175,7 +175,6 @@ function love.update(dt)
 
             sounds['paddle_hit']:play()
         end
-
         -- detect upper and lower screen boundary collision, playing a sound
         -- effect and reversing dy if true
         if ball.y <= 0 then
