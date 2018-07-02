@@ -273,7 +273,7 @@ function love.keypressed(key)
     if key == 'right' then
             x = x + speed
     -- players can use up and down keys for horizontal movement
-    if key == ',' then
+    if key == 'up' then
             y = y - speed
     if key == 'down' then
             y = y + speed
@@ -302,7 +302,6 @@ function love.keypressed(key)
                 servingPlayer = 1
             end
         end
-    end
     end
     end
     end
