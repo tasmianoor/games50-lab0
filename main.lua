@@ -265,19 +265,18 @@ end
 function love.keypressed(key)
     -- `key` will be whatever key this callback detected as pressed
     if key == 'escape' then
+        -- the function LÖVE2D uses to quit the application
         love.event.quit()
         -- players can use left and right keys for horizontal movement
-         if key == 'left' then
+    if key == 'left' then
             x = x - speed
-        if key == 'right' then
+    if key == 'right' then
             x = x + speed
-        -- players can use up and down keys for horizontal movement
-         if key == 'up' then
+    -- players can use up and down keys for horizontal movement
+    if key == 'up' then
             y = y - speed
-        if key == 'down' then
+    if key == 'down' then
             y = y + speed
-        -- the function LÖVE2D uses to quit the application
-        
     -- if we press enter during either the start or serve phase, it should
     -- transition to the next appropriate state
     elseif key == 'enter' or key == 'return' then
@@ -303,6 +302,9 @@ function love.keypressed(key)
                 servingPlayer = 1
             end
         end
+    end
+    end
+    end
     end
 end
 
